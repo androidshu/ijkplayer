@@ -16,6 +16,11 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
+
     }
     buildTypes {
         release {
@@ -23,14 +28,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "all64", "all32"
+
     productFlavors {
-        all32 { minSdkVersion 9 }
-        all64 { minSdkVersion 21 }
+        all64 {
+            minSdkVersion 21
+            dimension "all64"
+        }
+        all32 {
+            minSdkVersion 9
+            dimension "all32"
+        }
+
         // armv5 {}
         // armv7a {}
         // arm64 { minSdkVersion 21 }
         // x86 {}
     }
+
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a', 'armeabi'
+//            universalApk false
+//        }
+//    }
 }
 
 dependencies {
